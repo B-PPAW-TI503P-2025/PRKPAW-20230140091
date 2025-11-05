@@ -1,21 +1,12 @@
-const presensiRecords = require("../data/presensiData");
-exports.getDailyReport = (req, res) => {
-  console.log("Controller: Mengambil data laporan harian dari array...");
-  res.json({
-    reportDate: new Date().toLocaleDateString(),
-    data: presensiRecords,
-  });
-};
+// routes/report.js
 
 const express = require('express');
 const router = express.Router();
-const reportController = require('../controllers/reportcontroller');
-const { addUserData, isAdmin } = require('../middleware/permissionMiddleware');
+const reportController = require('../controllers/reportcontroller'); // Pastikan path benar
+const { addUserData, isAdmin } = require('../middleware/permissionMiddleware'); // Pastikan fungsi di file ini diekspor
 
-// Endpoint untuk mendapatkan laporan
-router.get('/', [addUserData, isAdmin], reportController.getDailyReport);
+// Endpoint untuk mendapatkan laporan harian
+// KOREKSI: Menggunakan '/daily' agar sesuai dengan URL yang diminta di Postman
+router.get('/daily', [addUserData, isAdmin], reportController.getDailyReport);
 
-module.exports = router;
-
-
-
+module.exports = router; // <-- HARUS ADA
