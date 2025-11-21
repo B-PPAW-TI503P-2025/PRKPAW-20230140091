@@ -1,12 +1,8 @@
-// routes/report.js
+const router = require('express').Router();
+const reportController = require('../controllers/reportcontroller'); 
+const { authenticateToken, isAdmin } = require('../middleware/permissionMiddleware'); 
 
-const express = require('express');
-const router = express.Router();
-const reportController = require('../controllers/reportcontroller'); // Pastikan path benar
-const { addUserData, isAdmin } = require('../middleware/permissionMiddleware'); // Pastikan fungsi di file ini diekspor
+// GET /api/reports/daily
+router.get('/daily', authenticateToken, isAdmin, reportController.getDailyReports);
 
-// Endpoint untuk mendapatkan laporan harian
-// KOREKSI: Menggunakan '/daily' agar sesuai dengan URL yang diminta di Postman
-router.get('/daily', [addUserData, isAdmin], reportController.getDailyReport);
-
-module.exports = router; // <-- HARUS ADA
+module.exports = router;
